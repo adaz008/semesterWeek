@@ -10,7 +10,7 @@ function getRandomColor(courseName) {
     const hash = [...courseName].reduce((acc, char) => {
         return char.charCodeAt(0) + ((acc << 5) - acc);
     }, 0);
-    
+
     // List of good color options
     const colors = [
         '#3b82f6', // blue
@@ -22,13 +22,13 @@ function getRandomColor(courseName) {
         '#06b6d4', // cyan
         '#84cc16', // lime
     ];
-    
+
     return colors[Math.abs(hash) % colors.length];
 }
 
 // User profiles - now dynamically loaded from localStorage or defaults
-let users = localStorage.getItem('users') ? 
-    JSON.parse(localStorage.getItem('users')) : 
+let users = localStorage.getItem('users') ?
+    JSON.parse(localStorage.getItem('users')) :
     {
         user1: {
             name: "Ádám",
@@ -61,34 +61,32 @@ const deadlines = [
     { course: "Budapest", task: "ZH 1", date: parseDate("03.26"), color: getRandomColor("Budapest"), users: ["user1", "user2"] },
     { course: "Budapest", task: "ZH 2", date: parseDate("05.14"), color: getRandomColor("Budapest"), users: ["user1", "user2"] },
     { course: "Budapest", task: "HF", date: parseDate("05.09"), color: getRandomColor("Budapest"), users: ["user1", "user2"] },
-    
+
     { course: "Diplomaterv", task: "Feladat kiírás", date: parseDate("03.16"), color: getRandomColor("Diplomaterv"), users: ["user1", "user2"] },
     { course: "Diplomaterv", task: "Dolgozat beadás", date: parseDate("05.23"), color: getRandomColor("Diplomaterv"), users: ["user1", "user2"] },
 
     // User1 specific courses
     { course: "MI etika", task: "ZH 1", date: parseDate("03.17"), color: getRandomColor("MI etika"), users: ["user1"] },
     { course: "MI etika", task: "ZH 2", date: parseDate("05.19"), color: getRandomColor("MI etika"), users: ["user1"] },
-  
-    { course: "Mobile Lab", task: "iOS jelenlét", date: parseDate("02.19"), color: getRandomColor("Mobile Lab"), users: ["user1"] },
-    { course: "Mobile Lab", task: "iOS jelenlét", date: parseDate("03.05"), color: getRandomColor("Mobile Lab"), users: ["user1"] },
-    { course: "Mobile Lab", task: "Android", date: parseDate("03.24"), color: getRandomColor("Mobile Lab"), users: ["user1"] },
-    { course: "Mobile Lab", task: "Android", date: parseDate("04.14"), color: getRandomColor("Mobile Lab"), users: ["user1"] },
-    { course: "Mobile Lab", task: "Android", date: parseDate("04.28"), color: getRandomColor("Mobile Lab"), users: ["user1"] },
-    { course: "Mobile Lab", task: "Android", date: parseDate("05.12"), color: getRandomColor("Mobile Lab"), users: ["user1"] },
-    { course: "Mobile Lab", task: "Android", date: parseDate("05.26"), color: getRandomColor("Mobile Lab"), users: ["user1"] },
 
-    { course: "UX", task: "Diffúziós modell", date: parseDate("03.26"), color: getRandomColor("UX"), users: ["user1"] },
+    //UX
+    { course: "UX", task: "Gesztusvezérlés, kézfelismerés - alap feladat", date: parseDate("02.12"), color: getRandomColor("UX"), users: ["user1"] },
+    { course: "UX", task: "Gesztusvezérlés, kézfelismerés - bővített feladat", date: parseDate("02.19"), color: getRandomColor("UX"), users: ["user1"] },
+    { course: "UX", task: "Diffúziós modell, képgenerálás", date: parseDate("03.26"), color: getRandomColor("UX"), users: ["user1"] },
     { course: "UX", task: "Integráció", date: parseDate("04.02"), color: getRandomColor("UX"), users: ["user1"] },
+
+    { course: "UX", task: "NVIDIA DLI", date: parseDate("02.26"), color: getRandomColor("UX"), users: ["user1"] },
     { course: "UX", task: "NVIDIA DLI", date: parseDate("03.05"), color: getRandomColor("UX"), users: ["user1"] },
     { course: "UX", task: "NVIDIA DLI", date: parseDate("03.12"), color: getRandomColor("UX"), users: ["user1"] },
     { course: "UX", task: "NVIDIA DLI", date: parseDate("03.19"), color: getRandomColor("UX"), users: ["user1"] },
+
     { course: "UX", task: "ChatBot", date: parseDate("04.09"), color: getRandomColor("UX"), users: ["user1"] },
     { course: "UX", task: "NLP backend", date: parseDate("04.16"), color: getRandomColor("UX"), users: ["user1"] },
     { course: "UX", task: "ChatBot integ.", date: parseDate("04.30"), color: getRandomColor("UX"), users: ["user1"] },
     { course: "UX", task: "UX tesztelés", date: parseDate("05.07"), color: getRandomColor("UX"), users: ["user1"] },
-  
+
     { course: "Mérnöki men.", task: "ZH", date: parseDate("04.28"), color: getRandomColor("Mérnöki men."), users: ["user1"] },
-  
+
     { course: "Mérn. men. módsz.", task: "ZH 1", date: parseDate("03.20"), color: getRandomColor("Mérn. men. módsz."), users: ["user1"] },
     { course: "Mérn. men. módsz.", task: "ZH 2", date: parseDate("05.15"), color: getRandomColor("Mérn. men. módsz."), users: ["user1"] },
 
@@ -116,7 +114,7 @@ function getUserDeadlines(userId) {
 function switchUser(userId) {
     if (users[userId]) {
         activeUser = userId;
-        
+
         // Update active class on buttons
         document.querySelectorAll('.user-btn').forEach(btn => {
             btn.classList.remove('active');
@@ -124,14 +122,14 @@ function switchUser(userId) {
                 btn.classList.add('active');
             }
         });
-        
+
         // Save to localStorage
         localStorage.setItem('activeUser', activeUser);
-        
+
         // Update the page for the new user
         updatePage();
         renderCalendar();
-        
+
         return true;
     }
     return false;
@@ -140,10 +138,10 @@ function switchUser(userId) {
 // Function to update user buttons in the sidebar
 function updateUserButtons() {
     const userSwitchContainer = document.querySelector('.user-switch');
-    
+
     // Clear existing buttons
     userSwitchContainer.innerHTML = '';
-    
+
     // Create buttons for each user
     Object.values(users).forEach(user => {
         const button = document.createElement('button');
