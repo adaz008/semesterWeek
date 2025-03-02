@@ -850,3 +850,19 @@ body {
 .close-notification:hover {
     opacity: 1;
 }
+
+.calendar-day.holiday {
+    background-color: rgba(255, 91, 91, 0.1);
+    position: relative;
+}
+
+.calendar-day.holiday::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    width: 8px;
+    height: 8px;
+    background-color: #ff5b5b;
+    border-radius: 50%;
+}

@@ -43,6 +43,20 @@ let users = localStorage.getItem('users') ?
 // Set active user (default: user1)
 let activeUser = localStorage.getItem('activeUser') || "user1";
 
+// Holiday dates for the calendar
+const holidays = [
+    { date: new Date(2025, 3, 17), name: "Tavaszi szünet kezdete" },
+    { date: new Date(2025, 3, 18), name: "Nagypéntek" },
+    { date: new Date(2025, 3, 21), name: "Húsvét" },
+    { date: new Date(2025, 3, 22), name: "Tavaszi szünet" },
+    { date: new Date(2025, 3, 23), name: "Tavaszi szünet" },
+    { date: new Date(2025, 3, 24), name: "Tavaszi szünet" },
+    { date: new Date(2025, 3, 25), name: "Tavaszi szünet vége" },
+    { date: new Date(2025, 4, 1), name: "Munka ünnepe" },
+    { date: new Date(2025, 5, 9), name: "Pünkösd" },
+];
+
+
 // Course deadlines with user assignments
 const deadlines = [
     // Common courses for both users
@@ -108,6 +122,24 @@ function getActiveUserDeadlines() {
 // Function to get filtered deadlines by specific user
 function getUserDeadlines(userId) {
     return deadlines.filter(deadline => deadline.users.includes(userId));
+}
+
+// Function to check if a date is a holiday
+function isHoliday(date) {
+    return holidays.find(holiday =>
+        // holiday.date.getFullYear() === date.getFullYear() &&
+        // holiday.date.getMonth() === date.getMonth() &&
+        // holiday.date.getDate() === date.getDate()
+        holiday.date.toDateString() === date.toDateString()
+    );
+}
+// Function to get holiday information for a date
+function getHolidayInfo(date) {
+    return holidays.find(holiday =>
+        holiday.date.getFullYear() === date.getFullYear() &&
+        holiday.date.getMonth() === date.getMonth() &&
+        holiday.date.getDate() === date.getDate()
+    );
 }
 
 // Function to switch user

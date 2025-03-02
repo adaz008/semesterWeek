@@ -129,6 +129,14 @@ function renderCalendar() {
         for (let i = firstDay - 1; i >= 0; i--) {
             const dayDiv = document.createElement('div');
             dayDiv.className = 'calendar-day other-month';
+
+            const prevDate = new Date(currentYear, currentMonth - 1, prevMonthDays - i);
+            const prevHoliday = isHoliday(prevDate);
+            if (prevHoliday) {
+                dayDiv.classList.add('holiday');
+                dayDiv.setAttribute('title', prevHoliday.name);
+            }
+
             dayDiv.innerHTML = `<div class="day-number">${prevMonthDays - i}</div>`;
             calendarDays.appendChild(dayDiv);
         }
@@ -164,6 +172,12 @@ function renderCalendar() {
                 currentYear === selectedDate.getFullYear()) {
                 dayDiv.classList.add('selected-day');
             }
+
+            const holiday = isHoliday(currentDate);
+            if (holiday) {
+                dayDiv.classList.add('holiday');
+                dayDiv.setAttribute('title', holiday.name);
+            }
             
             // Add click event to show tasks for this day
             dayDiv.addEventListener('click', () => {
@@ -193,6 +207,14 @@ function renderCalendar() {
         for (let i = 1; i <= remainingCells; i++) {
             const dayDiv = document.createElement('div');
             dayDiv.className = 'calendar-day other-month';
+
+            const nextDate = new Date(currentYear, currentMonth + 1, i);
+            const nextHoliday = isHoliday(nextDate);
+            if (nextHoliday) {
+                dayDiv.classList.add('holiday');
+                dayDiv.setAttribute('title', nextHoliday.name);
+            }
+
             dayDiv.innerHTML = `<div class="day-number">${i}</div>`;
             calendarDays.appendChild(dayDiv);
         }
