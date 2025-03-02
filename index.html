@@ -3,304 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Semester Week Tracker</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            min-height: 100vh;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #333;
-            padding: 20px 0;
-        }
-        .container {
-            background-color: rgba(255, 255, 255, 0.9);
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            padding: 40px;
-            text-align: center;
-            max-width: 800px;
-            width: 90%;
-        }
-        h1, h2, h3 {
-            margin: 0 0 20px;
-            color: #2c3e50;
-        }
-        h1 {
-            font-size: 2.5rem;
-        }
-        h2 {
-            font-size: 1.8rem;
-            margin-top: 30px;
-        }
-        h3 {
-            font-size: 1.5rem;
-            color: #3498db;
-            margin-top: 30px;
-        }
-        .week-display {
-            font-size: 5rem;
-            font-weight: bold;
-            color: #3498db;
-            margin: 30px 0;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        .progress-container {
-            background-color: #eee;
-            border-radius: 20px;
-            height: 20px;
-            width: 100%;
-            margin: 30px 0;
-            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        .progress-bar {
-            height: 100%;
-            border-radius: 20px;
-            background: linear-gradient(to right, #3498db, #2980b9);
-            transition: width 0.5s ease;
-            width: 0%;
-        }
-        .date-info {
-            font-size: 1.2rem;
-            color: #7f8c8d;
-            margin-top: 20px;
-        }
-        .message {
-            margin-top: 20px;
-            font-style: italic;
-            color: #2c3e50;
-        }
-        .tasks-container {
-            margin-top: 30px;
-            text-align: left;
-        }
-        .task-list {
-            background-color: #f8f9fa;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        }
-        .task-item {
-            margin-bottom: 10px;
-            padding: 8px 0;
-            border-bottom: 1px solid #eee;
-        }
-        .task-item:last-child {
-            border-bottom: none;
-        }
-        .task-date {
-            font-weight: bold;
-            color: #e74c3c;
-        }
-        .task-course {
-            font-weight: bold;
-            color: #3498db;
-        }
-        .no-tasks {
-            font-style: italic;
-            color: #7f8c8d;
-        }
-        @media (max-width: 480px) {
-            .container {
-                padding: 25px;
-            }
-            h1 {
-                font-size: 1.8rem;
-            }
-            .week-display {
-                font-size: 3.5rem;
-            }
-        }
-    </style>
+    <title>StudySync</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Semester Progress</h1>
-        <div class="week-display" id="weekNumber">-</div>
-        <p>Week of the semester</p>
-        <div class="progress-container">
-            <div class="progress-bar" id="progressBar"></div>
+    <div class="app-container">
+        <div class="sidebar">
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <span>StudySync</span>
+            </div>
+            <div class="user-switch">
+                <!-- User buttons will be added dynamically by JavaScript -->
+            </div>
+            <div class="semester-progress">
+                <div class="progress-circle" id="progressCircle">
+                    <svg viewBox="0 0 36 36" class="progress-ring">
+                        <path class="progress-ring-bg" d="M18 2.0845
+                            a 15.9155 15.9155 0 0 1 0 31.831
+                            a 15.9155 15.9155 0 0 1 0 -31.831" />
+                        <path class="progress-ring-fill" id="progressPath" 
+                            stroke-dasharray="100, 100" d="M18 2.0845
+                            a 15.9155 15.9155 0 0 1 0 31.831
+                            a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    </svg>
+                    <div class="progress-text">
+                        <div class="week-number" id="weekNumber">0</div>
+                        <div class="week-label">Week</div>
+                    </div>
+                </div>
+                <div class="semester-dates">
+                    <div class="date-item">
+                        <i class="fas fa-calendar-day"></i>
+                        <span>Feb 10 - May 31, 2025</span>
+                    </div>
+                    <div class="date-item">
+                        <i class="fas fa-clock"></i>
+                        <span id="currentDate">Today</span>
+                    </div>
+                </div>
+            </div>
+            <nav class="nav-menu">
+                <a href="#" class="nav-item active" data-tab="dashboard">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="upcoming">
+                    <i class="fas fa-calendar"></i>
+                    <span>Upcoming</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="courses">
+                    <i class="fas fa-book"></i>
+                    <span>Courses</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="calendar">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Calendar</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="mood-message" id="message">Keep going!</div>
+            </div>
         </div>
-        <div class="date-info">
-            <p>Semester start: February 10, 2025</p>
-            <p>Today: <span id="currentDate"></span></p>
-        </div>
-        <div class="message" id="message"></div>
 
-        <div class="tasks-container">
-            <h2>Upcoming Deadlines</h2>
+        <main class="main-content">
+            <header class="main-header">
+                <h1 id="pageTitle">Dashboard</h1>
+                <div class="user-info">
+                    <span id="activeUserDisplay">Your Schedule</span>
+                    <div class="theme-toggle">
+                        <i class="fas fa-moon" id="themeToggle"></i>
+                    </div>
+                </div>
+            </header>
 
-            <div class="task-list">
-                <h3>Current Week Tasks</h3>
-                <div id="currentWeekTasks"></div>
+            <div class="tab-content active" id="dashboard">
+                <div class="dashboard-cards">
+                    <div class="card this-week">
+                        <div class="card-header">
+                            <h2>This Week</h2>
+                            <span class="badge" id="thisWeekCount">0</span>
+                        </div>
+                        <div class="card-content" id="currentWeekTasks">
+                            <!-- Tasks filled by JS -->
+                        </div>
+                    </div>
+                    <div class="card next-week">
+                        <div class="card-header">
+                            <h2>Next Week</h2>
+                            <span class="badge" id="nextWeekCount">0</span>
+                        </div>
+                        <div class="card-content" id="nextWeekTasks">
+                            <!-- Tasks filled by JS -->
+                        </div>
+                    </div>
+                </div>
+                <div class="highlight-section">
+                    <h2>Coming Up</h2>
+                    <div class="timeline" id="timeline">
+                        <!-- Timeline filled by JS -->
+                    </div>
+                </div>
             </div>
 
-            <div class="task-list">
-                <h3>Next Week Tasks</h3>
-                <div id="nextWeekTasks"></div>
+            <div class="tab-content" id="upcoming">
+                <div class="upcoming-list" id="upcomingList">
+                    <!-- Upcoming tasks filled by JS -->
+                </div>
             </div>
-        </div>
+
+            <div class="tab-content" id="courses">
+                <div class="courses-grid" id="coursesGrid">
+                    <!-- Courses grid filled by JS -->
+                </div>
+            </div>
+
+            <div class="tab-content" id="calendar">
+                <div class="calendar-container">
+                    <div class="calendar-header">
+                        <button id="prevMonth"><i class="fas fa-chevron-left"></i></button>
+                        <h2 id="currentMonth">March 2025</h2>
+                        <button id="nextMonth"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <div class="weekdays">
+                        <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div>
+                        <div>Thu</div><div>Fri</div><div>Sat</div>
+                    </div>
+                    <div class="calendar-days" id="calendarDays">
+                        <!-- Calendar days filled by JS -->
+                    </div>
+                </div>
+                <div class="events-for-day" id="eventsForDay">
+                    <!-- Events for selected day filled by JS -->
+                </div>
+            </div>
+        </main>
     </div>
 
-    <script>
-        function getWeek(){
-            const startOfSemester = new Date(2025, 1, 10)
-            const timePast = Date.now() - startOfSemester.getTime();
-            const oneDay = 24 * 60 * 60 * 1000;
-            const week = Math.ceil((timePast / oneDay) / 7);
-            return week;
-        }
-
-        // Parse date string to Date object
-        function parseDate(dateStr) {
-            const [month, day] = dateStr.split('.').map(num => parseInt(num));
-            return new Date(2025, month - 1, day);
-        }
-
-        // Get week number from date
-        function getWeekFromDate(date) {
-            const startOfSemester = new Date(2025, 1, 10);
-            const timePast = date.getTime() - startOfSemester.getTime();
-            const oneDay = 24 * 60 * 60 * 1000;
-            return Math.ceil((timePast / oneDay) / 7);
-        }
-
-        // Format date nicely
-        function formatDate(date) {
-            const options = { month: 'short', day: 'numeric' };
-            return date.toLocaleDateString(undefined, options);
-        }
-
-        // Course deadlines
-        const deadlines = [
-            { course: "Üzleti intelligencia labor", task: "Labor", date: parseDate("02.23") },
-            { course: "Üzleti intelligencia labor", task: "Labor", date: parseDate("03.09") },
-            { course: "Üzleti intelligencia labor", task: "Labor", date: parseDate("03.23") },
-            { course: "Üzleti intelligencia labor", task: "Labor", date: parseDate("04.06") },
-            { course: "Üzleti intelligencia labor", task: "HF Spec", date: parseDate("04.20") },
-            { course: "Üzleti intelligencia labor", task: "HF Done", date: parseDate("05.11") },
-          
-            { course: "Megbízható mesterséges intelligencia és adatelemzés", task: "HF Part 1", date: null, week: 7 },
-            { course: "Megbízható mesterséges intelligencia és adatelemzés", task: "HF Part 2", date: null, week: 14 },
-          
-            { course: "Mobile Lab", task: "iOS jelenlét", date: parseDate("02.19") },
-            { course: "Mobile Lab", task: "iOS jelenlét", date: parseDate("03.05") },
-            { course: "Mobile Lab", task: "Android", date: parseDate("03.24") },
-            { course: "Mobile Lab", task: "Android", date: parseDate("04.14") },
-            { course: "Mobile Lab", task: "Android", date: parseDate("04.28") },
-            { course: "Mobile Lab", task: "Android", date: parseDate("05.12") },
-            { course: "Mobile Lab", task: "Android", date: parseDate("05.26") },
-
-            { course: "UX", task: "Diffúziós modell, képgenerálás", date: parseDate("03.26") },
-            { course: "UX", task: "Integráció, véglegesítés", date: parseDate("04.02") },
-            { course: "UX", task: "NVIDIA DLI kurzus", date: parseDate("03.05") },
-            { course: "UX", task: "NVIDIA DLI kurzus", date: parseDate("03.12") },
-            { course: "UX", task: "NVIDIA DLI kurzus", date: parseDate("03.19") },
-            { course: "UX", task: "ChatBot, gradio beszédinterfész elkezdése", date: parseDate("04.09") },
-            { course: "UX", task: "NLP backend", date: parseDate("04.16") },
-            { course: "UX", task: "ChatBot integráció", date: parseDate("04.30") },
-            { course: "UX", task: "UX tesztelés", date: parseDate("05.07") },
-          
-            { course: "Mérnöki menedzsment", task: "ZH", date: parseDate("04.28") },
-          
-            { course: "A mesterséges intelligencia etikája", task: "ZH 1", date: parseDate("03.17") },
-            { course: "A mesterséges intelligencia etikája", task: "ZH 2", date: parseDate("05.19") },
-          
-            { course: "Budapest", task: "ZH 1", date: parseDate("03.26") },
-            { course: "Budapest", task: "ZH 2", date: parseDate("05.14") },
-            { course: "Budapest", task: "HF", date: parseDate("05.09") },
-          
-            { course: "Mérnöki menendzsment módszerek", task: "ZH 1", date: parseDate("03.20") },
-            { course: "Mérnöki menendzsment módszerek", task: "ZH 2", date: parseDate("05.15") },
-
-            {course: "Diplomaterv", task: "Feladat kiírás feltöltése", data: parseDate("03.16")},
-           {course: "Diplomaterv", task: "Dolgozat beadása", data: parseDate("05.23")}
-        ];
-
-        function updatePage() {
-            // Get the current week
-            const currentWeek = getWeek();
-            
-            // Update the week display
-            document.getElementById('weekNumber').textContent = currentWeek;
-            
-            // Assuming a 16-week semester
-            const totalWeeks = 16;
-            const progress = (currentWeek / totalWeeks) * 100;
-            document.getElementById('progressBar').style.width = Math.min(progress, 100) + '%';
-            
-            // Get and format current date
-            const now = new Date();
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            document.getElementById('currentDate').textContent = now.toLocaleDateString(undefined, options);
-            
-            // Add motivational message based on progress
-            const messageElement = document.getElementById('message');
-            if (currentWeek <= 4) {
-                messageElement.textContent = "Just getting started! Establish good habits now.";
-            } else if (currentWeek <= 8) {
-                messageElement.textContent = "You're in the swing of things. Keep up the momentum!";
-            } else if (currentWeek <= 12) {
-                messageElement.textContent = "The finish line is coming into view. Stay focused!";
-            } else {
-                messageElement.textContent = "Final push! You've got this!";
-            }
-
-            // Filter tasks for current week
-            const currentWeekTasks = deadlines.filter(d => {
-                if (d.date) {
-                    return getWeekFromDate(d.date) === currentWeek;
-                } else if (d.week) {
-                    return d.week === currentWeek;
-                }
-                return false;
-            });
-
-            // Filter tasks for next week
-            const nextWeekTasks = deadlines.filter(d => {
-                if (d.date) {
-                    return getWeekFromDate(d.date) === currentWeek + 1;
-                } else if (d.week) {
-                    return d.week === currentWeek + 1;
-                }
-                return false;
-            });
-
-            // Display current week tasks
-            const currentWeekTasksElement = document.getElementById('currentWeekTasks');
-            if (currentWeekTasks.length > 0) {
-                currentWeekTasksElement.innerHTML = currentWeekTasks.map(task => {
-                    const dateString = task.date ? formatDate(task.date) : `Week ${task.week}`;
-                    return `<div class="task-item">
-                        <span class="task-date">${dateString}</span> - 
-                        <span class="task-course">${task.course}</span>: ${task.task}
-                    </div>`;
-                }).join('');
-            } else {
-                currentWeekTasksElement.innerHTML = `<p class="no-tasks">No tasks for this week</p>`;
-            }
-
-            // Display next week tasks
-            const nextWeekTasksElement = document.getElementById('nextWeekTasks');
-            if (nextWeekTasks.length > 0) {
-                nextWeekTasksElement.innerHTML = nextWeekTasks.map(task => {
-                    const dateString = task.date ? formatDate(task.date) : `Week ${task.week}`;
-                    return `<div class="task-item">
-                        <span class="task-date">${dateString}</span> - 
-                        <span class="task-course">${task.course}</span>: ${task.task}
-                    </div>`;
-                }).join('');
-            } else {
-                nextWeekTasksElement.innerHTML = `<p class="no-tasks">No tasks for next week</p>`;
-            }
-        }
-        
-        // Update on page load
-        updatePage();
-    </script>
+    <script src="data.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
