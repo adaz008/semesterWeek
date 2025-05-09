@@ -65,12 +65,12 @@ const deadlines = [
     { course: "BI labor", task: "Pentaho Labor", date: parseDate("03.23"), color: getRandomColor("BI labor"), users: ["user1", "user2"] },
     { course: "BI labor", task: "Adatelemzés Labor", date: parseDate("04.06"), color: getRandomColor("BI labor"), users: ["user1", "user2"] },
     { course: "BI labor", task: "HF Spec", date: parseDate("04.20"), color: getRandomColor("BI labor"), users: ["user1", "user2"] },
-    { course: "BI labor", task: "HF Done", date: parseDate("05.11"), color: getRandomColor("BI labor"), users: ["user1", "user2"] },
+    { course: "BI labor", task: "HF Done", date: parseDate("05.18"), color: getRandomColor("BI labor"), users: ["user1", "user2"] },
 
-    { course: "Szofti", task: "ZH", date: parseDate("04.09"), color: getRandomColor("Szofti"), users: ["user1", "user2"] },
+    { course: "Szofti", task: "ZH", date: parseDate("05.08"), color: getRandomColor("Szofti"), users: ["user1", "user2"] },
 
     { course: "MI/adatelemzés", task: "HF Part 1", date: null, week: 7, color: getRandomColor("MI/adatelemzés"), users: ["user1", "user2"] },
-    { course: "MI/adatelemzés", task: "HF Part 2", date: null, week: 14, color: getRandomColor("MI/adatelemzés"), users: ["user1", "user2"] },
+    { course: "MI/adatelemzés", task: "HF Part 2", date: parseDate("05.26"), color: getRandomColor("MI/adatelemzés"), users: ["user1", "user2"] },
 
     { course: "Budapest", task: "ZH 1", date: parseDate("03.26"), color: getRandomColor("Budapest"), users: ["user1", "user2"] },
     { course: "Budapest", task: "ZH 2", date: parseDate("05.14"), color: getRandomColor("Budapest"), users: ["user1", "user2"] },

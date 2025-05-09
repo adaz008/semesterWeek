@@ -1,9 +1,19 @@
 // Get the current week of the semester
 function getWeek() {
-    const startOfSemester = new Date(2025, 1, 10);
-    const timePast = Date.now() - startOfSemester.getTime();
+    const startOfSemester = new Date(2025, 1, 10); // február 10.
+    const tavasziSzunetVege = new Date(2025, 3, 25); // április 25.
+    const now = new Date();
+
+    const timePast = now - startOfSemester;
     const oneDay = 24 * 60 * 60 * 1000;
-    return Math.ceil((timePast / oneDay) / 7);
+    let week = Math.ceil(timePast / oneDay / 7);
+
+    // Ha most van a tavaszi szünet után, csökkentsük eggyel a hetet
+    if (now > tavasziSzunetVege) {
+        week -= 1;
+    }
+
+    return week;
 }
 
 // Get week number from date
